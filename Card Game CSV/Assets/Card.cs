@@ -11,7 +11,7 @@ public abstract class Card
     public struct CardInfo
     {
         public string cardName;
-        public int type;
+        public Vibes type;
         public int value;
         public bool isPlayable;
         public string text;
@@ -28,11 +28,12 @@ public abstract class Card
         public int totalPoints;
     }
 
-    public enum Vibes
+    public enum Vibes : byte
     {
         Calm,
         Bubbly,
-        Hype
+        Hype,
+        Undefined
     }
     #endregion
 
@@ -43,7 +44,6 @@ public abstract class Card
 
     public Card()
     {
-        
 
     }
 
@@ -58,10 +58,10 @@ public abstract class Card
 
         switch (displayedInfo.type)
         {
-            case (int)Card.Vibes.Bubbly:
+            case (int)Card.Vibes.Calm:
                 cardBackgroundImage.sprite = Resources.Load<Sprite>("Cards/Bubbly_Background");
                 break;
-            case (int)Card.Vibes.Calm:
+            case (int)Card.Vibes.Bubbly:
                 cardBackgroundImage.sprite = Resources.Load<Sprite>("Cards/Calm_Background");
                 break;
             case (int)Card.Vibes.Hype:
@@ -75,5 +75,11 @@ public abstract class Card
         cardGameObject.AddComponent<CardIdentifier>().whichCardIsThis = this;
     }
 
-
+    public static Vibes Parse(string vibeString)
+    {
+        if (vibeString == "Vibes.Bubbly") return Vibes.Bubbly;
+        else if (vibeString == "Vibes.Calm") return Vibes.Calm;
+        else if (vibeString == "Vibes.Hype") return Vibes.Hype;
+        else return Vibes.Undefined;
+    }
 }
