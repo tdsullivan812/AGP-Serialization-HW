@@ -50,6 +50,7 @@ public class CardParser : MonoBehaviour
             if (stringToRead.Peek() == -1) break;
         }
 
+        stringToRead.Close();
         return dictionaryOfCards;
 
 
